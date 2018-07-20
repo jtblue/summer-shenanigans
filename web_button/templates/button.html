@@ -1,11 +1,15 @@
 <!DOCTYPE html>
     <head>
         <title>{{ title }}</title>
+        <link rel="stylesheet" type = "text/css" href={{ url_for('static', filename='switch_style.css') }}>
+        <link rel="stylesheet" type = "text/css" href={{ url_for('static', filename='styles.css') }}>
     </head>
-
     <body>
-        <h1>Hello there</h1>
-        <h2>{{ button_status }}</h2>
-        <button type="button">{{ button_message }}</button>
+        <h1>Light is {% if button_status %} on{% else %} off{% endif %}.</h2>
+        <label class="switch">
+            <input type="checkbox" name="button_switch" id="button_switch" {% if button_status %} checked {% endif %}>
+            <span class="slider round"></span>
+          </label>
+          <script src={{ url_for('static', filename='button_stuff.js') }}></script/>
     </body>
 </html>

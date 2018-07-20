@@ -1,10 +1,12 @@
-from flask import Flask, render_template
+from flask import (
+    Flask, flash, g, redirect, render_template, request, session, url_for
+)
 import datetime
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
 app = Flask(__name__)
 
-GPIO.setmode(GPIO.BCM)
+#GPIO.setmode(GPIO.BCM)
 
 @app.route("/")
 def hello():
@@ -16,6 +18,40 @@ def hello():
         }
     return render_template('main.html', **templateData)
 
+
+@app.route("/button", methods=('GET', 'POST'))
+def button():
+    on = False
+    message = "Hello there"
+    if request.form.get('button_switch'):
+        on = True
+    print(on)
+
+    templateData = {
+        'button_status' : on,
+        'button_message' : message
+    }
+
+    return render_template('button.html', **templateData)
+
+
+@app.route("/button/<status>")
+def button_toggle(status):
+    on = False
+    if (status == "on"):
+        on = True
+    
+    message = status
+
+    templateData = {
+        'button_status' : on,
+        'button_message' : message
+    }
+
+    return render_template('button.html', **templateData)
+
+
+"""
 @app.route("/readPin/<pin>")
 def readPin(pin):
     try:
@@ -33,17 +69,6 @@ def readPin(pin):
         }
     return render_template('pin.html', **templateData)
 
-def fade():
-    p = GPIO.PWM(25, 50)
-    p.start(0)
-    while True:
-        for dc in range(0,100,10):
-            p.ChangeDutyCycle(dc)
-            time.sleep(.05)
-        for dc in range(100,0,-10):
-            p.ChangeDutyCycle(dc)
-            time.sleep(.05)
-
 @app.route("/button/<status>")
 def button_status(status):
     try:
@@ -54,8 +79,6 @@ def button_status(status):
         elif status == "off":
             GPIO.output(25, 0)
             response = "Button is off!"
-        elif status == "fade":
-            fade(status) # infinite loop
         else:
             response = "Invalid command"
 
@@ -66,7 +89,7 @@ def button_status(status):
         'title': 'Button page',
         'response': response
         }
-    return render_template('button.html', **templateData)
+    return render_template('button.html', **templateData)"""
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)

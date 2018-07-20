@@ -1,0 +1,18 @@
+html {
+	font-family: sans-serif;
+	background: black;
+	padding: 1rem;
+  }
+  
+body {
+	max-width: 960px;
+	margin: 0 auto;
+	color: blue;
+	background-color: black;
+	
+  }
+
+h1 {
+	color: blue;
+	background-color: black;
+}
