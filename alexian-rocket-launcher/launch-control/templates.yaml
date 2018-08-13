@@ -1,0 +1,4 @@
+countdown_message: |
+  <speak>
+      Beginning countdown from {{time}} <break time="0.4s"/> {{ counter }} Ignition
+  </speak>

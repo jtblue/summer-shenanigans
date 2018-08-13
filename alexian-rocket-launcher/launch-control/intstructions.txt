@@ -1,0 +1,8 @@
+Terminal 1:
+ngrok http 5000
+
+Terminal 2 (in root directory of python code):
+export ASK_VERIFY_REQUESTS=false
+python3 command_processor.py
+
+Create a bash script to run these two processes in parallel
